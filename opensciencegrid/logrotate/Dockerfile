@@ -14,5 +14,5 @@ RUN yum install -y crontabs \
                    logrotate \
     && yum clean all
 
-COPY startup.sh /bin/
+COPY startup.sh /bin
 CMD [ "/bin/startup.sh" ]
