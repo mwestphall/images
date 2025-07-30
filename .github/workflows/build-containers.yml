@@ -108,9 +108,9 @@ jobs:
         if: >-
           github.ref == 'refs/heads/main' &&
           github.event_name != 'pull_request' &&
-          github.repository_owner == 'opensciencegrid' &&
           needs.build-image-list.outputs.image_list != '["dummy"]'
-        uses: opensciencegrid/push-container-action@v0.8.1
+#          github.repository_owner == 'opensciencegrid' &&
+        uses: mwestphall/push-container-action@e3528c97a44b53d1f09f423370dda38314dcba85
         with:
           clean_before_build: false
           repo: ${{ matrix.base_repo }}
@@ -128,9 +128,9 @@ jobs:
           startsWith(env.IMAGE_NAME, 'opensciencegrid') &&
           github.ref == 'refs/heads/main' &&
           github.event_name != 'pull_request' &&
-          github.repository_owner == 'opensciencegrid' &&
           needs.build-image-list.outputs.image_list != '["dummy"]' 
-        uses: opensciencegrid/push-container-action@v0.8.1
+#          github.repository_owner == 'opensciencegrid' &&
+        uses: mwestphall/push-container-action@e3528c97a44b53d1f09f423370dda38314dcba85
         with:
           clean_before_build: false
           repo: ${{ matrix.base_repo }}
@@ -138,6 +138,7 @@ jobs:
           context: ${{ matrix.context }}
           base_os: ${{ matrix.base_os }}
           image_name: ${{ env.IMAGE_NAME }}
+          image_tag: ${{ matrix.tag_override }}
           registry_url: docker.io
           registry_user: ${{ secrets.DOCKER_USERNAME }}
           registry_pass: ${{ secrets.DOCKER_PASSWORD }}
