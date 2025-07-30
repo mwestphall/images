@@ -83,12 +83,7 @@ jobs:
           OSG_SERIES=${{ matrix.osg_series }}
           BASE_REPO=${{ matrix.base_repo }}
           ORGANIZATION=$(echo ${{ matrix.context }} | cut -d'/' -f1)
-
-          if [ -n "${{ matrix.tag_override }}" ] ; then
-            echo "IMAGE_NAME=${ORGANIZATION}/${{ matrix.name }}:${{ matrix.tag_override }}" >> $GITHUB_ENV
-          else
-            echo "IMAGE_NAME=${ORGANIZATION}/${{ matrix.name }}:${OSG_SERIES}-${BASE_OS}-${BASE_REPO}" >> $GITHUB_ENV
-          fi
+          echo "IMAGE_NAME=${ORGANIZATION}/${{ matrix.name }}" >> $GITHUB_ENV
 
       - name: Pull External Repo
         if: ${{ matrix.upstream }}
@@ -123,6 +118,7 @@ jobs:
           context: ${{ matrix.context }}
           base_os: ${{ matrix.base_os }}
           image_name: ${{ env.IMAGE_NAME }}
+          image_tag: ${{ matrix.tag_override }}
           registry_url: hub.opensciencegrid.org
           registry_user: ${{ secrets.OSG_HARBOR_ROBOT_USER }}
           registry_pass: ${{ secrets.OSG_HARBOR_ROBOT_PASSWORD }}
