@@ -12,3 +12,7 @@ RUN curl -o /usr/libexec/condor/annex/spark.fragment -L $UPSTREAM_RAW/src/condor
 # Move the htcondor supervisord file and then reference it from our own submit file
 RUN mv /etc/supervisord.conf /etc/supervisord-condor.conf
 COPY supervisord.conf /etc/supervisord.conf
+
+# Copy a tempalte .ssh config file into the image for later config via supervisorctl
+# Submituser home directory will likely be a volume mount
+COPY ssh_config /etc/ssh_config
