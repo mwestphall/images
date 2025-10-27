@@ -2,7 +2,7 @@ FROM htcondor/submit
 
 ENV UPSTREAM_RAW=https://raw.githubusercontent.com/htcondor/htcondor/b3132e353c4e0b265117701823f7bf3c219e90ce
 
-RUN yum install -y pip && pip install jupyterlab
+RUN yum install -y pip && pip install jupyterlab ipywidgets
 
 # Copy the modified annex source files from https://github.com/htcondor/htcondor/pull/3668
 # into the htcondor site-packages directory 
