@@ -1,5 +1,5 @@
 # Specify the opensciencegrid/software-base image tag
-ARG BASE_OSG_SERIES=23
+ARG BASE_OSG_SERIES=25
 ARG BASE_YUM_REPO=release
 
 # has to be el8 for a working ganglia/php combination
@@ -28,6 +28,7 @@ RUN dnf -y distro-sync && \
       vim \
       wget \
       lrzsz \
+      https://htcss-downloads.chtc.wisc.edu/repo/25.x/htcondor-release-current.el8.noarch.rpm \
     && \
     dnf -y clean all && \
     mkdir -p /run/php-fpm
@@ -35,7 +36,7 @@ RUN dnf -y distro-sync && \
 # Pull HTCondor from the proper repo. For "release" we need to use
 # osg-upcoming-testing to meet the patch tuesday requirements.
 RUN if [[ $BASE_YUM_REPO = release ]]; then \
-      dnf -y --enablerepo=osg-upcoming-testing install condor; \
+      dnf -y --enablerepo=osg-upcoming-testing --enablerepo=htcondor-snapshot install condor; \
     else \
       dnf -y install condor; \
     fi
@@ -73,5 +74,3 @@ COPY httpd-ganglia.conf /etc/httpd/conf.d/ganglia.conf
 COPY index.php /var/www/html/
 
 ADD ganglia-web-overrides /usr/share/ganglia
-
-

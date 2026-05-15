@@ -176,3 +176,23 @@
   Requirements = true;
   TargetType = "Startd";
 ]
+[
+  Aggregate = "SUM";
+  Name   = "TotalTransferInputMB";
+  Desc   = "Total Job Input Data Transfer";
+  Value  = TotalTransferInputMB;
+  Units  = "megabytes";
+  Derivative = true;
+  Requirements = true;
+  TargetType = "Startd";
+]
+[
+  Aggregate = "SUM";
+  Name   = "TotalTransferOutputMB";
+  Desc   = "Total Job Output Data Transfer";
+  Value  = TotalTransferOutputMB;
+  Units  = "megabytes";
+  Derivative = true;
+  Requirements = true;
+  TargetType = "Startd";
+]
